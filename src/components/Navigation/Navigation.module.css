@@ -1,0 +1,33 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1440px;
+  height: 72px;
+  padding: 24px 64px;
+  background-color: var(--inputs);
+  border-bottom: 1px solid var(--badges);
+  gap: 32px;
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navButton {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+
+.navButton.active {
+  color: var(--button);
+}
+
+.navigation > div:last-child {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}

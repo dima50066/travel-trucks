@@ -1,11 +1,11 @@
-import React from "react";
+import Navigation from "./components/Navigation/Navigation";
 
 function App() {
   return (
-    <div>
-      <h1>Travel Trucks</h1>
-      <p>Welcome to TravelTrucks, your go-to camper rental service!</p>
-    </div>
+    <>
+      <Navigation />
+      <main></main>
+    </>
   );
 }
 

@@ -1,0 +1,49 @@
+.hero {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("/public/images/hero.png") no-repeat center center/cover;
+  height: 696px;
+  display: flex;
+  align-items: center;
+  color: var(--inputs);
+}
+
+.overlay {
+  padding-left: 64px;
+  border-radius: 8px;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 67%;
+  color: var(--inputs);
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  color: var(--inputs);
+  margin-bottom: 40px;
+}
+
+.button {
+  border-radius: 200px;
+  width: 173px;
+  height: 56px;
+  background-color: var(--button);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.button:hover {
+  background-color: var(--button-hover);
+}

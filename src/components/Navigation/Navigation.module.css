@@ -17,13 +17,16 @@
 }
 
 .navButton {
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--main);
 }
 
 .navButton.active {
-  color: var(--button);
+  color: var(--button-hover);
 }
 
 .navigation > div:last-child {

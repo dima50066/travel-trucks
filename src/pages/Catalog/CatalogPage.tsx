@@ -6,6 +6,7 @@ import Filters from "../../components/Filters/Filters";
 import CamperList from "../../components/CamperList/CamperList";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
 import { AppDispatch } from "../../redux/store";
+import styles from "./CatalogPage.module.css";
 
 const CatalogPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,12 +18,16 @@ const CatalogPage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="catalog-container">
-      <Filters />
-      <CamperList campers={campers} />
-      {loading && <p>Loading...</p>}
-      <LoadMoreButton />
-    </div>
+    <section className={styles.catalogContainer}>
+      <div className={styles.sidebar}>
+        <Filters />
+      </div>
+      <div className={styles.mainContent}>
+        <CamperList campers={campers} />
+        {loading && <p className={styles.loading}>Loading...</p>}
+        <LoadMoreButton />
+      </div>
+    </section>
   );
 };
 

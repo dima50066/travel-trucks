@@ -1,0 +1,80 @@
+.filtersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.location {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelLocation {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--gray);
+  padding-bottom: 8px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputCity {
+  border-radius: 12px;
+  padding: 18px 18px 18px 46px;
+  width: 360px;
+  height: 56px;
+  background-color: var(--inputs);
+  border: 1px solid var(--gray-light);
+  font-size: 16px;
+  color: var(--gray);
+  transition: all 0.3s ease;
+}
+
+.inputCity.inputActive {
+  color: var(--main);
+  border-color: var(--main);
+}
+
+.inputCity::placeholder {
+  color: var(--gray);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+}
+
+.inputCity:focus,
+.inputCity:focus-visible {
+  outline: none;
+  border-color: var(--gray-light);
+  box-shadow: none;
+}
+
+.icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: color 0.3s ease;
+  color: var(--gray);
+}
+
+.icon.iconActive {
+  color: var(--main);
+}
+
+/* FILTERS */
+
+.labelFilters {
+  padding-top: 32px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--text);
+}

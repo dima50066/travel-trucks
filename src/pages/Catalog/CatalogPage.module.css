@@ -1,0 +1,19 @@
+.catalogContainer {
+  display: flex;
+  margin: 0 auto;
+  padding-top: 48px;
+  padding-left: 64px;
+  background-color: var(--white);
+  gap: 2rem;
+}
+
+.sidebar {
+  flex: 0 0 360px;
+  background: #ffffff;
+}
+
+.mainContent {
+}
+
+.loading {
+}

@@ -4,7 +4,7 @@
   align-items: center;
   width: 1440px;
   height: 72px;
-  padding: 24px 64px;
+  padding: 28px 64px;
   background-color: var(--inputs);
   border-bottom: 1px solid var(--badges);
   gap: 32px;

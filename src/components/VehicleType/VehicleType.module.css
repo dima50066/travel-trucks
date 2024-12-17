@@ -1,0 +1,65 @@
+.vehicleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: var(--gray-light);
+}
+
+.typesGrid {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.typeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 112px;
+  height: 96px;
+  border: 1px solid var(--gray-light);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.typeBox:hover {
+  border-color: var(--button);
+}
+
+.typeBox.active {
+  border-color: var(--button);
+}
+
+.icon {
+  color: var(--gray);
+  transition: color 0.3s ease;
+}
+
+.label {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--main);
+}

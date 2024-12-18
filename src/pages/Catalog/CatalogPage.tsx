@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/operations";
 import { selectCampers, selectLoading } from "../../redux/selectors";
@@ -13,9 +13,17 @@ const CatalogPage: React.FC = () => {
   const campers = useSelector(selectCampers);
   const loading = useSelector(selectLoading);
 
+  const [visibleCount, setVisibleCount] = useState(4);
+
   useEffect(() => {
     dispatch(fetchCampers({ filters: {} }));
   }, [dispatch]);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 4);
+  };
+
+  const hasMoreToLoad = visibleCount < campers.length;
 
   return (
     <section className={styles.catalogContainer}>
@@ -23,9 +31,9 @@ const CatalogPage: React.FC = () => {
         <Filters />
       </div>
       <div className={styles.mainContent}>
-        <CamperList campers={campers} />
+        <CamperList campers={campers.slice(0, visibleCount)} />
         {loading && <p className={styles.loading}>Loading...</p>}
-        <LoadMoreButton />
+        {hasMoreToLoad && <LoadMoreButton onLoadMore={handleLoadMore} />}
       </div>
     </section>
   );

@@ -3,6 +3,12 @@ export interface GalleryItem {
   original: string;
 }
 
+export interface Review {
+  reviewer_name: string;
+  reviewer_rating: number;
+  comment: string;
+}
+
 export interface Camper {
   id: string;
   name: string;
@@ -11,7 +17,11 @@ export interface Camper {
   location: string;
   description: string;
   gallery: GalleryItem[];
-  [key: string]: unknown;
+  reviews: Review[];
+  transmission?: string;
+  engine?: string;
+  kitchen?: boolean;
+  AC?: boolean;
 }
 
 export type CampersResponse = Camper[];

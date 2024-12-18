@@ -1,0 +1,32 @@
+.vehicleDetails {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.vehicleDetails h3 {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--gray-light);
+  padding-bottom: 24px;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailsRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--main);
+}

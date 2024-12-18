@@ -1,0 +1,28 @@
+.contentContainer {
+  display: flex;
+  gap: 40px;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  border-radius: 10px;
+  padding: 44px 80px;
+  background: var(--inputs);
+  display: flex;
+  flex-direction: column;
+}
+
+.leftSection {
+  width: 631px;
+  height: 588px;
+}
+
+.rightSection {
+  border: 1px solid var(--gray-light);
+  border-radius: 10px;
+  padding: 44px;
+  width: 641px;
+  height: 588px;
+}

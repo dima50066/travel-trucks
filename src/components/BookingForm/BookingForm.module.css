@@ -1,0 +1,137 @@
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--main);
+  margin-bottom: 8px;
+}
+
+.description {
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.input {
+  border-radius: 12px;
+  padding: 18px 337px 18px 18px;
+  width: 527px;
+  height: 60px;
+  background-color: var(--inputs);
+  border: none;
+}
+
+.dateInputWrapper {
+  position: relative;
+}
+
+.dateInputWrapper input {
+  appearance: none;
+}
+
+.textarea {
+  border-radius: 10px;
+  padding: 18px 308px 76px 18px;
+  width: 527px;
+  height: 118px;
+  background: var(--inputs);
+  border: none;
+  resize: none;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+}
+/* BUTTON */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.button {
+  background-color: #e94e3c;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 200px;
+  width: 166px;
+  height: 56px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #d63c2f;
+}
+
+/* CALENDAR */
+.react-datepicker__header {
+  background-color: var(--white);
+}
+.customHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--main);
+  background-color: var(--white);
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.arrow:hover {
+  color: #e94e3c;
+  transform: scale(1.1);
+}
+
+.react-datepicker {
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: var(--font-family);
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 8px 0;
+  color: #888;
+  border-bottom: 1px solid var(--text);
+}
+
+.react-datepicker__day-name {
+  width: 14.28%;
+  text-align: center;
+}
+
+/* Дні календаря */
+.react-datepicker__day {
+  width: 14.28%;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  margin: 2px 0;
+  transition: background 0.3s ease;
+}

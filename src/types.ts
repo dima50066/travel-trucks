@@ -22,6 +22,20 @@ export interface Camper {
   engine?: string;
   kitchen?: boolean;
   AC?: boolean;
+  bathroom?: boolean;
+  TV?: boolean;
+  radio?: boolean;
+  refrigerator?: boolean;
+  microwave?: boolean;
+  gas?: boolean;
+  water?: boolean;
+  form?: string;
+  length?: number;
+  width?: number;
+  height?: number;
+  tank?: number;
+  consumption?: number;
+  features?: string[];
 }
 
 export type CampersResponse = Camper[];

@@ -3,27 +3,19 @@ import { Camper } from "../../types";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./CamperCard.module.css";
 import Button from "../../shared/Button/Button";
+import { useNavigate } from "react-router-dom";
+import FeatureIconsList from "../FeatureIconsList/FeatureIconsList";
 
 interface CamperCardProps {
   camper: Camper;
 }
 
-const featureIcons: Record<string, { id: string; label: string }> = {
-  kitchen: { id: "kitchen", label: "Kitchen" },
-  AC: { id: "ac", label: "AC" },
-  bathroom: { id: "bathroom", label: "Bathroom" },
-  TV: { id: "tv", label: "TV" },
-  radio: { id: "radio", label: "Radio" },
-  refrigerator: { id: "refrigerator", label: "Refrigerator" },
-  microwave: { id: "microwave", label: "Microwave" },
-  gas: { id: "gas", label: "Gas" },
-  water: { id: "water", label: "Water" },
-};
-
 const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
-  const activeFeatures = Object.keys(featureIcons)
-    .filter((key) => camper[key as keyof Camper] === true)
-    .slice(0, 5);
+  const navigate = useNavigate();
+
+  const handleShowMore = () => {
+    navigate(`/catalog/${camper.id}`);
+  };
 
   return (
     <div className={styles.camperCard}>
@@ -61,15 +53,13 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
             : camper.description}
         </p>
 
-        <div className={styles.features}>
-          {activeFeatures.map((feature) => (
-            <span key={feature} className={styles.featureItem}>
-              <Icon id={featureIcons[feature].id} width={20} height={20} />{" "}
-              {featureIcons[feature].label}
-            </span>
-          ))}
-        </div>
-        <Button text="Show more" className={styles.showMore} />
+        <FeatureIconsList features={camper} limit={5} />
+
+        <Button
+          text="Show more"
+          className={styles.showMore}
+          onClick={handleShowMore}
+        />
       </div>
     </div>
   );

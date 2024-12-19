@@ -5,11 +5,27 @@ import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import VehicleType from "../VehicleType/VehicleType";
 import Button from "../../shared/Button/Button";
 
-const Filters: React.FC = () => {
+interface FiltersProps {
+  onApplyFilters: (filters: Record<string, string>) => void;
+}
+
+const Filters: React.FC<FiltersProps> = ({ onApplyFilters }) => {
   const [inputValue, setInputValue] = useState("");
+  const [filters, setFilters] = useState<Record<string, string>>({});
+
+  const updateFilters = (newFilters: Record<string, string>) => {
+    setFilters((prev) => ({
+      ...prev,
+      ...newFilters,
+    }));
+  };
 
   const handleButtonClick = () => {
-    console.log("Filters applied!");
+    const appliedFilters = {
+      ...filters,
+      location: inputValue || "",
+    };
+    onApplyFilters(appliedFilters);
   };
 
   return (
@@ -36,9 +52,8 @@ const Filters: React.FC = () => {
         <label className={styles.labelFilters}>Filters</label>
       </div>
 
-      <VehicleEquipment />
-
-      <VehicleType />
+      <VehicleEquipment setFilters={updateFilters} />
+      <VehicleType setFilters={updateFilters} />
 
       <Button
         text="Search"

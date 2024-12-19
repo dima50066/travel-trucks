@@ -3,13 +3,26 @@ import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleType.module.css";
 
 const vehicleTypes = [
-  { id: "van", label: "Van" },
-  { id: "integrated", label: "Fully Integrated" },
   { id: "alcove", label: "Alcove" },
+  { id: "fullyIntegrated", label: "Fully Integrated" },
+  { id: "panelTruck", label: "Panel Truck" },
 ];
 
-const VehicleType: React.FC = () => {
+interface VehicleTypeProps {
+  setFilters: (filters: Record<string, string>) => void;
+}
+
+const VehicleType: React.FC<VehicleTypeProps> = ({ setFilters }) => {
   const [selected, setSelected] = useState<string | null>(null);
+
+  const handleSelection = (id: string) => {
+    const newSelected = selected === id ? null : id;
+    setSelected(newSelected);
+
+    setFilters({
+      form: newSelected || "",
+    });
+  };
 
   return (
     <div className={styles.vehicleContainer}>
@@ -22,7 +35,7 @@ const VehicleType: React.FC = () => {
             className={`${styles.typeBox} ${
               selected === type.id ? styles.active : ""
             }`}
-            onClick={() => setSelected(type.id)}
+            onClick={() => handleSelection(type.id)}
           >
             <Icon
               id={type.id}

@@ -38,7 +38,11 @@ export interface Camper {
   features?: string[];
 }
 
-export type CampersResponse = Camper[];
+export interface CampersResponse {
+  items: Camper[];
+  totalPages: number;
+  total: number;
+}
 
 export type FetchError = string;
 
@@ -48,4 +52,6 @@ export interface CampersState {
   error: string | null;
   camperDetails: Camper | null;
   favorites: string[];
+  currentPage: number;
+  totalPages: number;
 }

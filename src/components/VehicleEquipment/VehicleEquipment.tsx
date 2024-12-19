@@ -3,15 +3,48 @@ import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleEquipment.module.css";
 
 const icons = [
-  { id: "ac", label: "AC" },
-  { id: "automatic", label: "Automatic" },
-  { id: "kitchen", label: "Kitchen" },
-  { id: "tv", label: "TV" },
-  { id: "bathroom", label: "Bathroom" },
+  { id: "AC", label: "AC", type: "boolean" },
+  {
+    id: "automatic",
+    label: "Automatic",
+    type: "transmission",
+    value: "automatic",
+  },
+  { id: "manual", label: "Manual", type: "transmission", value: "manual" },
+  { id: "kitchen", label: "Kitchen", type: "boolean" },
+  { id: "TV", label: "TV", type: "boolean" },
+  { id: "bathroom", label: "Bathroom", type: "boolean" },
 ];
 
-const VehicleEquipment: React.FC = () => {
-  const [selected, setSelected] = useState<string | null>(null);
+interface VehicleEquipmentProps {
+  setFilters: (filters: Record<string, string>) => void;
+}
+
+const VehicleEquipment: React.FC<VehicleEquipmentProps> = ({ setFilters }) => {
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const toggleSelection = (id: string) => {
+    const updatedSelection = selected.includes(id)
+      ? selected.filter((item) => item !== id)
+      : [...selected, id];
+
+    setSelected(updatedSelection);
+
+    const updatedFilters = updatedSelection.reduce<Record<string, string>>(
+      (acc, key) => {
+        const icon = icons.find((icon) => icon.id === key);
+        if (icon?.type === "boolean") {
+          acc[key] = "true";
+        } else if (icon?.type === "transmission" && icon.value) {
+          acc["transmission"] = icon.value;
+        }
+        return acc;
+      },
+      {}
+    );
+
+    setFilters(updatedFilters);
+  };
 
   return (
     <div className={styles.equipmentContainer}>
@@ -21,14 +54,14 @@ const VehicleEquipment: React.FC = () => {
           <div
             key={icon.id}
             className={`${styles.iconBox} ${
-              selected === icon.id ? styles.active : ""
+              selected.includes(icon.id) ? styles.active : ""
             }`}
-            onClick={() => setSelected(icon.id)}
+            onClick={() => toggleSelection(icon.id)}
           >
             <Icon
               id={icon.id}
               className={`${styles.icon} ${
-                selected === icon.id ? styles.iconActive : ""
+                selected.includes(icon.id) ? styles.iconActive : ""
               }`}
               width={24}
               height={24}

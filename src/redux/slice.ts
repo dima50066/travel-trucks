@@ -8,6 +8,8 @@ const initialState: CampersState = {
   error: null,
   camperDetails: null,
   favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
+  currentPage: 1,
+  totalPages: 1,
 };
 
 const campersSlice = createSlice({
@@ -27,20 +29,24 @@ const campersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Campers
       .addCase(fetchCampers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchCampers.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload;
+        if (action.meta.arg.page === 1) {
+          state.items = action.payload.items;
+          state.currentPage = 1;
+        } else {
+          state.items = [...state.items, ...action.payload.items];
+        }
+        state.totalPages = Math.ceil(action.payload.total / 4);
       })
       .addCase(fetchCampers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       })
-      //   Camper details
       .addCase(fetchCamperDetails.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -56,4 +62,5 @@ const campersSlice = createSlice({
   },
 });
 
+export const { toggleFavorite } = campersSlice.actions;
 export default campersSlice.reducer;

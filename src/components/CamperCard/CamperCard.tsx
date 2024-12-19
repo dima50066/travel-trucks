@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../redux/slice";
 import { Camper } from "../../types";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./CamperCard.module.css";
 import Button from "../../shared/Button/Button";
 import { useNavigate } from "react-router-dom";
 import FeatureIconsList from "../FeatureIconsList/FeatureIconsList";
+import { selectFavorites } from "../../redux/selectors";
 
 interface CamperCardProps {
   camper: Camper;
@@ -12,10 +15,24 @@ interface CamperCardProps {
 
 const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleShowMore = () => {
     navigate(`/catalog/${camper.id}`);
   };
+
+  const handleToggleFavorite = () => {
+    dispatch(toggleFavorite(camper.id));
+  };
+
+  const favorites = useSelector(selectFavorites);
+
+  const isFavorite = favorites.includes(camper.id);
+
+  const iconId = useMemo(
+    () => (isFavorite ? "heart-filled" : "heart-outline"),
+    [isFavorite]
+  );
 
   return (
     <div className={styles.camperCard}>
@@ -29,10 +46,13 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
             <div className={styles.priceWrapper}>
               <span className={styles.price}>€{camper.price.toFixed(2)}</span>
               <Icon
-                id="heart-outline"
+                id={iconId}
                 width={24}
                 height={24}
-                className={styles.heartIcon}
+                className={`${styles.heartIcon} ${
+                  isFavorite ? styles.filled : ""
+                }`}
+                onClick={handleToggleFavorite}
               />
             </div>
           </div>

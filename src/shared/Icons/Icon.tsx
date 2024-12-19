@@ -6,11 +6,18 @@ interface IconProps {
   width?: number | string;
   height?: number | string;
   id: string;
+  onClick?: () => void;
 }
 
-const Icon: React.FC<IconProps> = ({ className, width, height, id }) => {
+const Icon: React.FC<IconProps> = ({
+  className,
+  width,
+  height,
+  id,
+  onClick,
+}) => {
   return (
-    <svg className={className} width={width} height={height}>
+    <svg className={className} width={width} height={height} onClick={onClick}>
       <use href={`${sprite}#${id}`} />
     </svg>
   );

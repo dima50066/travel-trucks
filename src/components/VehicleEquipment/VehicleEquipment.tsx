@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleEquipment.module.css";
 import { toast } from "react-toastify";
 import { setFilters } from "../../redux/filterSlice";
-import { selectFilters } from "../../redux/selectors";
+import { selectFilters, selectError } from "../../redux/selectors";
 
 const icons = [
   { id: "AC", label: "AC", type: "boolean" },
@@ -23,8 +23,15 @@ const icons = [
 const VehicleEquipment: React.FC = () => {
   const dispatch = useDispatch();
   const filters = useSelector(selectFilters);
+  const error = useSelector(selectError);
 
   const [selected, setSelected] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`Not campers for this filters`);
+    }
+  }, [error]);
 
   const toggleSelection = (id: string) => {
     const selectedIcon = icons.find((icon) => icon.id === id);

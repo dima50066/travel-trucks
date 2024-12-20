@@ -60,6 +60,26 @@ const VehicleEquipment: React.FC = () => {
     }
 
     dispatch(setFilters(updatedFilters));
+    displayToast(updatedFilters);
+  };
+
+  const displayToast = (appliedFilters: Record<string, string>) => {
+    const { transmission, ...equipmentFilters } = appliedFilters;
+
+    let message = "Filters applied:";
+    if (transmission) message += ` Transmission: ${transmission}.`;
+
+    const equipmentKeys = Object.keys(equipmentFilters);
+    if (equipmentKeys.length > 0) {
+      const equipment = equipmentKeys.join(", ");
+      message += ` Equipment: ${equipment}.`;
+    }
+
+    if (message === "Filters applied:") {
+      toast.warn("No filters selected.");
+    } else {
+      toast.success(message);
+    }
   };
 
   return (

@@ -5,39 +5,36 @@ import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import VehicleType from "../VehicleType/VehicleType";
 import Button from "../../shared/Button/Button";
 import LocationFilter from "../LocationFilter/LocationFilter";
-import { toast } from "react-toastify";
 import { setFilters } from "../../redux/filterSlice";
 import { selectFilters } from "../../redux/selectors";
+
+type FiltersType = Record<string, string>;
 
 const Filters: React.FC = () => {
   const dispatch = useDispatch();
 
-  const filters = useSelector(selectFilters);
+  const filters: FiltersType = useSelector(selectFilters);
 
   const handleButtonClick = () => {
     dispatch(setFilters(filters));
-    displayToast(filters);
+
+    fetchFilteredData(filters);
   };
 
-  const displayToast = (appliedFilters: Record<string, string>) => {
-    const { location, transmission, form, ...equipmentFilters } =
-      appliedFilters;
+  const fetchFilteredData = async (appliedFilters: FiltersType) => {
+    try {
+      const response = await fetch(
+        `/api/data?${new URLSearchParams(appliedFilters).toString()}`
+      );
 
-    let message = "Filters applied:";
-    if (location) message += ` Location: ${location}.`;
-    if (transmission) message += ` Transmission: ${transmission}.`;
-    if (form) message += ` Vehicle type: ${form}.`;
+      if (!response.ok) {
+        throw new Error("Failed to fetch filtered data");
+      }
 
-    const equipmentKeys = Object.keys(equipmentFilters);
-    if (equipmentKeys.length > 0) {
-      const equipment = equipmentKeys.join(", ");
-      message += ` Equipment: ${equipment}.`;
-    }
-
-    if (message === "Filters applied:") {
-      toast.warn("No filters selected.");
-    } else {
-      toast.success(message);
+      const data = await response.json();
+      console.log("Filtered data:", data);
+    } catch (error) {
+      console.error("Error fetching filtered data:", error);
     }
   };
 

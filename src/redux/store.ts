@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import campersReducer from "./slice";
+import filtersReducer from "./filterSlice";
 
 const store = configureStore({
   reducer: {
     campers: campersReducer,
+    filters: filtersReducer,
   },
 });
 

@@ -17,14 +17,6 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleShowMore = () => {
-    navigate(`/catalog/${camper.id}`);
-  };
-
-  const handleToggleFavorite = () => {
-    dispatch(toggleFavorite(camper.id));
-  };
-
   const favorites = useSelector(selectFavorites);
 
   const isFavorite = favorites.includes(camper.id);
@@ -33,6 +25,14 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
     () => (isFavorite ? "heart-filled" : "heart-outline"),
     [isFavorite]
   );
+
+  const handleShowMore = () => {
+    navigate(`/catalog/${camper.id}`);
+  };
+
+  const handleToggleFavorite = () => {
+    dispatch(toggleFavorite(camper.id));
+  };
 
   return (
     <div className={styles.camperCard}>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCampers, fetchCamperDetails } from "./operations";
+import { fetchFilteredCampers, fetchCamperDetails } from "./operations";
 import { CampersState } from "../types";
 
 const initialState: CampersState = {
@@ -29,21 +29,19 @@ const campersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCampers.pending, (state) => {
+      .addCase(fetchFilteredCampers.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchCampers.fulfilled, (state, action) => {
+      .addCase(fetchFilteredCampers.fulfilled, (state, action) => {
         state.loading = false;
         if (action.meta.arg.page === 1) {
           state.items = action.payload.items;
-          state.currentPage = 1;
         } else {
           state.items = [...state.items, ...action.payload.items];
         }
-        state.totalPages = Math.ceil(action.payload.total / 4);
       })
-      .addCase(fetchCampers.rejected, (state, action) => {
+      .addCase(fetchFilteredCampers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Something went wrong";
       })

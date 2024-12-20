@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./LocationFilter.module.css";
 import Icon from "../../shared/Icons/Icon";
+import { setLocation } from "../../redux/filterSlice";
+import { selectLocation } from "../../redux/selectors";
 
-interface LocationFilterProps {
-  onLocationChange: (location: string) => void;
-}
+const LocationFilter: React.FC = () => {
+  const dispatch = useDispatch();
 
-const LocationFilter: React.FC<LocationFilterProps> = ({
-  onLocationChange,
-}) => {
-  const [inputValue, setInputValue] = useState("");
+  const currentLocation = useSelector(selectLocation);
+
+  const [inputValue, setInputValue] = useState(currentLocation);
+
+  useEffect(() => {
+    setInputValue(currentLocation);
+  }, [currentLocation]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-    onLocationChange(value);
+
+    dispatch(setLocation(value));
   };
 
   return (

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleType.module.css";
+import { setFilters } from "../../redux/filterSlice";
+import { selectFilters } from "../../redux/selectors";
 
 const vehicleTypes = [
   { id: "alcove", label: "Alcove" },
@@ -8,20 +11,21 @@ const vehicleTypes = [
   { id: "panelTruck", label: "Panel Truck" },
 ];
 
-interface VehicleTypeProps {
-  setFilters: (filters: Record<string, string>) => void;
-}
+const VehicleType: React.FC = () => {
+  const dispatch = useDispatch();
 
-const VehicleType: React.FC<VehicleTypeProps> = ({ setFilters }) => {
-  const [selected, setSelected] = useState<string | null>(null);
+  const filters = useSelector(selectFilters);
+  const selectedForm = filters.form || null;
 
   const handleSelection = (id: string) => {
-    const newSelected = selected === id ? null : id;
-    setSelected(newSelected);
+    const newSelected = selectedForm === id ? null : id;
 
-    setFilters({
-      form: newSelected || "",
-    });
+    dispatch(
+      setFilters({
+        ...filters,
+        form: newSelected || "",
+      })
+    );
   };
 
   return (
@@ -33,14 +37,14 @@ const VehicleType: React.FC<VehicleTypeProps> = ({ setFilters }) => {
           <div
             key={type.id}
             className={`${styles.typeBox} ${
-              selected === type.id ? styles.active : ""
+              selectedForm === type.id ? styles.active : ""
             }`}
             onClick={() => handleSelection(type.id)}
           >
             <Icon
               id={type.id}
               className={`${styles.icon} ${
-                selected === type.id ? styles.iconActive : ""
+                selectedForm === type.id ? styles.iconActive : ""
               }`}
               width={24}
               height={24}

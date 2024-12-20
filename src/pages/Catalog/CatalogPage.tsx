@@ -1,41 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCampers } from "../../redux/operations";
+import { fetchFilteredCampers } from "../../redux/operations";
 import {
   selectCampers,
   selectLoading,
-  selectCurrentPage,
+  selectPage,
   selectTotalPages,
+  selectFilters,
 } from "../../redux/selectors";
 import Filters from "../../components/Filters/Filters";
 import CamperList from "../../components/CamperList/CamperList";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
+import { setPage } from "../../redux/filterSlice";
 import { AppDispatch } from "../../redux/store";
 import styles from "./CatalogPage.module.css";
 
 const CatalogPage: React.FC = () => {
-  const [appliedFilters, setAppliedFilters] = useState<Record<string, string>>(
-    {}
-  );
   const dispatch = useDispatch<AppDispatch>();
+
   const campers = useSelector(selectCampers);
   const loading = useSelector(selectLoading);
-  const currentPage = useSelector(selectCurrentPage);
+  const currentPage = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
+  const filters = useSelector(selectFilters);
 
   useEffect(() => {
-    dispatch(fetchCampers({ filters: appliedFilters, page: 1, limit: 4 }));
-  }, [dispatch, appliedFilters]);
+    dispatch(fetchFilteredCampers({ filters, page: currentPage, limit: 4 }));
+  }, [dispatch, filters, currentPage]);
 
   const handleLoadMore = () => {
     if (currentPage < totalPages) {
-      dispatch(
-        fetchCampers({
-          filters: appliedFilters,
-          page: currentPage + 1,
-          limit: 4,
-        })
-      );
+      dispatch(setPage(currentPage + 1));
     }
   };
 
@@ -44,7 +39,7 @@ const CatalogPage: React.FC = () => {
   return (
     <section className={styles.catalogContainer}>
       <div className={styles.sidebar}>
-        <Filters onApplyFilters={(filters) => setAppliedFilters(filters)} />
+        <Filters />
       </div>
       <div className={styles.mainContent}>
         <CamperList campers={campers} />

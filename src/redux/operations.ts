@@ -4,12 +4,12 @@ import { CampersResponse, FetchError, Camper } from "../types";
 
 const BASE_URL = "https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers";
 
-export const fetchCampers = createAsyncThunk<
+export const fetchFilteredCampers = createAsyncThunk<
   CampersResponse,
   { filters: Record<string, string>; page: number; limit: number },
   { rejectValue: FetchError }
 >(
-  "campers/fetchCampers",
+  "filters/fetchFilteredCampers",
   async ({ filters, page, limit }, { rejectWithValue }) => {
     try {
       const queryString = new URLSearchParams({

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleEquipment.module.css";
 import { toast } from "react-toastify";
+import { setFilters } from "../../redux/filterSlice";
+import { selectFilters } from "../../redux/selectors";
 
 const icons = [
   { id: "AC", label: "AC", type: "boolean" },
@@ -17,47 +20,46 @@ const icons = [
   { id: "bathroom", label: "Bathroom", type: "boolean" },
 ];
 
-interface VehicleEquipmentProps {
-  setFilters: (filters: Record<string, string>) => void;
-}
+const VehicleEquipment: React.FC = () => {
+  const dispatch = useDispatch();
+  const filters = useSelector(selectFilters);
 
-const VehicleEquipment: React.FC<VehicleEquipmentProps> = ({ setFilters }) => {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<Record<string, boolean>>({});
 
   const toggleSelection = (id: string) => {
     const selectedIcon = icons.find((icon) => icon.id === id);
 
-    // Заборона вибору більше однієї трансмісії
     if (selectedIcon?.type === "transmission") {
-      const alreadySelectedTransmission = selected.find((selectedId) => {
-        const icon = icons.find((icon) => icon.id === selectedId);
-        return icon?.type === "transmission";
-      });
+      const currentTransmission = filters.transmission;
 
-      if (alreadySelectedTransmission && alreadySelectedTransmission !== id) {
+      if (currentTransmission && currentTransmission !== selectedIcon.value) {
         toast.error("You can select only one transmission type at a time.");
         return;
       }
     }
 
-    const updatedSelection = selected.includes(id)
-      ? selected.filter((item) => item !== id) // Видалення з вибору
-      : [...selected, id]; // Додавання до вибору
+    setSelected((prevSelected) => ({
+      ...prevSelected,
+      [id]: !prevSelected[id],
+    }));
 
-    setSelected(updatedSelection);
+    const updatedFilters = { ...filters };
 
-    const updatedFilters: Record<string, string> = {};
-
-    updatedSelection.forEach((key) => {
-      const icon = icons.find((icon) => icon.id === key);
-      if (icon?.type === "boolean") {
-        updatedFilters[key] = "true";
-      } else if (icon?.type === "transmission" && icon.value) {
-        updatedFilters["transmission"] = icon.value;
+    if (selectedIcon?.type === "boolean") {
+      if (filters[id]) {
+        delete updatedFilters[id];
+      } else {
+        updatedFilters[id] = "true";
       }
-    });
+    } else if (selectedIcon?.type === "transmission" && selectedIcon.value) {
+      if (filters.transmission === selectedIcon.value) {
+        delete updatedFilters.transmission;
+      } else {
+        updatedFilters.transmission = selectedIcon.value;
+      }
+    }
 
-    setFilters(updatedFilters);
+    dispatch(setFilters(updatedFilters));
   };
 
   return (
@@ -68,14 +70,14 @@ const VehicleEquipment: React.FC<VehicleEquipmentProps> = ({ setFilters }) => {
           <div
             key={icon.id}
             className={`${styles.iconBox} ${
-              selected.includes(icon.id) ? styles.active : ""
+              selected[icon.id] ? styles.active : ""
             }`}
             onClick={() => toggleSelection(icon.id)}
           >
             <Icon
               id={icon.id}
               className={`${styles.icon} ${
-                selected.includes(icon.id) ? styles.iconActive : ""
+                selected[icon.id] ? styles.iconActive : ""
               }`}
               width={24}
               height={24}

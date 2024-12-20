@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Filters.module.css";
 import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import VehicleType from "../VehicleType/VehicleType";
 import Button from "../../shared/Button/Button";
 import LocationFilter from "../LocationFilter/LocationFilter";
 import { toast } from "react-toastify";
+import { setFilters } from "../../redux/filterSlice";
+import { selectFilters } from "../../redux/selectors";
 
-interface FiltersProps {
-  onApplyFilters: (filters: Record<string, string>) => void;
-}
+const Filters: React.FC = () => {
+  const dispatch = useDispatch();
 
-const Filters: React.FC<FiltersProps> = ({ onApplyFilters }) => {
-  const [filters, setFilters] = useState<Record<string, string>>({});
-
-  const updateFilters = (newFilters: Record<string, string>) => {
-    setFilters((prev) => ({
-      ...prev,
-      ...newFilters,
-    }));
-  };
-
-  const handleLocationChange = (location: string) => {
-    updateFilters({ location });
-  };
+  const filters = useSelector(selectFilters);
 
   const handleButtonClick = () => {
-    onApplyFilters(filters);
+    dispatch(setFilters(filters));
     displayToast(filters);
   };
 
@@ -53,14 +43,16 @@ const Filters: React.FC<FiltersProps> = ({ onApplyFilters }) => {
 
   return (
     <div className={styles.filtersContainer}>
-      <LocationFilter onLocationChange={handleLocationChange} />
-      <VehicleEquipment setFilters={updateFilters} />
-      <VehicleType setFilters={updateFilters} />
-      <Button
-        text="Search"
-        onClick={handleButtonClick}
-        className={styles.filterButton}
-      />
+      <LocationFilter />
+      <VehicleEquipment />
+      <VehicleType />
+      <div className={styles.buttonsWrapper}>
+        <Button
+          text="Search"
+          onClick={handleButtonClick}
+          className={styles.filterButton}
+        />
+      </div>
     </div>
   );
 };

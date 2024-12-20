@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./LocationFilter.module.css";
 import Icon from "../../shared/Icons/Icon";
-import { setLocation } from "../../redux/filterSlice";
-import { selectLocation } from "../../redux/selectors";
+import { setLocation, setFilters } from "../../redux/filterSlice";
+import { selectLocation, selectFilters } from "../../redux/selectors";
 import { toast } from "react-toastify";
 
 const LocationFilter: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentLocation = useSelector(selectLocation);
+  const filters = useSelector(selectFilters);
 
   const [inputValue, setInputValue] = useState(currentLocation);
   const [debounceTimeout, setDebounceTimeout] = useState<ReturnType<
@@ -34,13 +35,16 @@ const LocationFilter: React.FC = () => {
     }
 
     const timeout = setTimeout(() => {
-      if (!isValidLanguage(value)) {
-        toast.error("Please enter a valid city name in English.");
+      if (!value.trim()) {
+        const updatedFilters = { ...filters };
+        delete updatedFilters.location;
+        dispatch(setFilters(updatedFilters));
+        toast.info("Location filter removed.");
         return;
       }
 
-      if (!value.trim()) {
-        toast.error("Location cannot be empty.");
+      if (!isValidLanguage(value)) {
+        toast.error("Please enter a valid city name in English.");
         return;
       }
 
@@ -52,11 +56,7 @@ const LocationFilter: React.FC = () => {
   };
 
   const displayToast = (location: string) => {
-    if (!location) {
-      toast.warn("No location entered.");
-    } else {
-      toast.success(`Location set to: ${location}`);
-    }
+    toast.success(`Location set to: ${location}`);
   };
 
   return (

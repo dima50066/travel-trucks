@@ -66,15 +66,12 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
             </span>
           </div>
         </div>
-
         <p className={styles.description}>
           {camper.description?.length > 60
             ? `${camper.description.slice(0, 60)}...`
             : camper.description}
         </p>
-
-        <FeatureIconsList features={camper} limit={5} />
-
+        <FeatureIconsList features={camper} limit={5} disableScroll />{" "}
         <Button
           text="Show more"
           className={styles.showMore}

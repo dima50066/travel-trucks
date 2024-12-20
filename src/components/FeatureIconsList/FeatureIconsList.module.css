@@ -9,6 +9,11 @@
   scrollbar-color: var(--scrollbar-color, #ccc) transparent;
 }
 
+.features.disableScroll {
+  max-height: none;
+  overflow-y: visible;
+}
+
 .features span {
   display: flex;
   align-items: center;

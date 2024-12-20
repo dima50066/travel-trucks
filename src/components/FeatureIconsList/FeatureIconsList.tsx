@@ -29,11 +29,13 @@ const transmissionIcons: Record<string, { id: string; label: string }> = {
 interface FeatureIconsListProps {
   features: Partial<Camper>;
   limit?: number;
+  disableScroll?: boolean;
 }
 
 const FeatureIconsList: React.FC<FeatureIconsListProps> = ({
   features,
   limit = 5,
+  disableScroll = false,
 }) => {
   const activeFeatures = Object.entries(featureIcons)
     .filter(([key]) => features[key as keyof Camper])
@@ -45,7 +47,11 @@ const FeatureIconsList: React.FC<FeatureIconsListProps> = ({
     : null;
 
   return (
-    <div className={styles.features}>
+    <div
+      className={`${styles.features} ${
+        disableScroll ? styles.disableScroll : ""
+      }`}
+    >
       {activeFeatures.map(([key, feature]) => (
         <span key={key} className={styles.featureItem}>
           <Icon id={feature.id} width={20} height={20} />

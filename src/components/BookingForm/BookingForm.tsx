@@ -5,15 +5,37 @@ import styles from "./BookingForm.module.css";
 import Button from "../../shared/Button/Button";
 import { registerLocale } from "react-datepicker";
 import { enGB } from "date-fns/locale/en-GB";
+import { toast } from "react-toastify";
 
 registerLocale("en-GB", enGB);
 
 const BookingForm: React.FC = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name || !email || !startDate) {
+      toast.error("Please fill in all required fields!");
+      return;
+    }
+
+    setTimeout(() => {
+      toast.success("Your booking request has been successfully sent!");
+    }, 500);
+
+    setName("");
+    setEmail("");
+    setStartDate(null);
+    setComment("");
+  };
 
   return (
     <div>
-      <form className={styles.bookingForm}>
+      <form className={styles.bookingForm} onSubmit={handleFormSubmit}>
         <h3 className={styles.title}>Book your campervan now</h3>
         <p className={styles.description}>
           Stay connected! We are always ready to help you.
@@ -23,12 +45,16 @@ const BookingForm: React.FC = () => {
             className={styles.input}
             type="text"
             placeholder="Name*"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
           <input
             className={styles.input}
             type="email"
             placeholder="Email*"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <div className={styles.datePickerWrapper}>
@@ -75,12 +101,14 @@ const BookingForm: React.FC = () => {
           <textarea
             className={styles.textarea}
             placeholder="Comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           ></textarea>
         </div>
+        <div className={styles.buttonContainer}>
+          <Button text="Send now" type="submit" className={styles.button} />
+        </div>
       </form>
-      <div className={styles.buttonContainer}>
-        <Button text="Send now" type="submit" className={styles.button} />
-      </div>
     </div>
   );
 };

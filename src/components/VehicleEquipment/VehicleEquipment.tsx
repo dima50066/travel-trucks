@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Icon from "../../shared/Icons/Icon";
 import styles from "./VehicleEquipment.module.css";
+import { toast } from "react-toastify";
 
 const icons = [
   { id: "AC", label: "AC", type: "boolean" },
@@ -24,24 +25,37 @@ const VehicleEquipment: React.FC<VehicleEquipmentProps> = ({ setFilters }) => {
   const [selected, setSelected] = useState<string[]>([]);
 
   const toggleSelection = (id: string) => {
+    const selectedIcon = icons.find((icon) => icon.id === id);
+
+    // Заборона вибору більше однієї трансмісії
+    if (selectedIcon?.type === "transmission") {
+      const alreadySelectedTransmission = selected.find((selectedId) => {
+        const icon = icons.find((icon) => icon.id === selectedId);
+        return icon?.type === "transmission";
+      });
+
+      if (alreadySelectedTransmission && alreadySelectedTransmission !== id) {
+        toast.error("You can select only one transmission type at a time.");
+        return;
+      }
+    }
+
     const updatedSelection = selected.includes(id)
-      ? selected.filter((item) => item !== id)
-      : [...selected, id];
+      ? selected.filter((item) => item !== id) // Видалення з вибору
+      : [...selected, id]; // Додавання до вибору
 
     setSelected(updatedSelection);
 
-    const updatedFilters = updatedSelection.reduce<Record<string, string>>(
-      (acc, key) => {
-        const icon = icons.find((icon) => icon.id === key);
-        if (icon?.type === "boolean") {
-          acc[key] = "true";
-        } else if (icon?.type === "transmission" && icon.value) {
-          acc["transmission"] = icon.value;
-        }
-        return acc;
-      },
-      {}
-    );
+    const updatedFilters: Record<string, string> = {};
+
+    updatedSelection.forEach((key) => {
+      const icon = icons.find((icon) => icon.id === key);
+      if (icon?.type === "boolean") {
+        updatedFilters[key] = "true";
+      } else if (icon?.type === "transmission" && icon.value) {
+        updatedFilters["transmission"] = icon.value;
+      }
+    });
 
     setFilters(updatedFilters);
   };

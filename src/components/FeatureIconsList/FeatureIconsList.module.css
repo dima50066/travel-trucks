@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  max-height: 103px;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color, #ccc) transparent;
 }
 
 .features span {

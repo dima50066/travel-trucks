@@ -57,11 +57,11 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
             </div>
           </div>
           <div className={styles.ratingLocation}>
-            <span className={styles.rating}>
+            <span className={`${styles.textStyle}`}>
               <Icon id="star-filled" width={16} height={16} /> {camper.rating} (
               {camper.reviews.length} Reviews)
             </span>
-            <span className={styles.location}>
+            <span className={`${styles.textStyle}`}>
               <Icon id="map" width={16} height={16} /> {camper.location}
             </span>
           </div>

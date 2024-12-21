@@ -76,6 +76,7 @@ const BookingForm: React.FC = () => {
                 onChange={(date) => setStartDate(date)}
                 placeholderText="Booking date*"
                 dateFormat="dd.MM.yyyy"
+                minDate={new Date()}
                 locale="en-GB"
                 showPopperArrow={false}
                 aria-label="Select your booking date"

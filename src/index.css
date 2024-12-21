@@ -1,2 +1,2 @@
-@import "./shared/styles/global.css";
+@import "../src/shared/Styles/global.css";
 @import "modern-normalize/modern-normalize.css";

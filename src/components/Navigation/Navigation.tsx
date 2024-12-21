@@ -6,7 +6,7 @@ const Navigation: React.FC = () => {
   return (
     <header>
       <section className={css.hero}>
-        <nav className={css.navigation}>
+        <nav className={css.navigation} aria-label="Main Navigation">
           <Icon className={css.logo} id="logo" width={136} height={15} />
           <div className={css.navButtons}>
             <NavLink

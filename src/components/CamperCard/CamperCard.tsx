@@ -53,15 +53,24 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
                   isFavorite ? styles.filled : ""
                 }`}
                 onClick={handleToggleFavorite}
+                aria-label={
+                  isFavorite ? "Remove from favorites" : "Add to favorites"
+                }
               />
             </div>
           </div>
           <div className={styles.ratingLocation}>
-            <span className={`${styles.textStyle}`}>
+            <span
+              className={`${styles.textStyle}`}
+              aria-label={`Rating: ${camper.rating} out of 5`}
+            >
               <Icon id="star-filled" width={16} height={16} /> {camper.rating} (
               {camper.reviews.length} Reviews)
             </span>
-            <span className={`${styles.textStyle}`}>
+            <span
+              className={`${styles.textStyle}`}
+              aria-label={`Location: ${camper.location}`}
+            >
               <Icon id="map" width={16} height={16} /> {camper.location}
             </span>
           </div>
@@ -76,6 +85,7 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
           text="Show more"
           className={styles.showMore}
           onClick={handleShowMore}
+          aria-label={`Show more details for ${camper.name}`}
         />
       </div>
     </div>

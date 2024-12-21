@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./LocationFilter.module.css";
 import Icon from "../../shared/Icons/Icon";
@@ -13,9 +13,7 @@ const LocationFilter: React.FC = () => {
   const filters = useSelector(selectFilters);
 
   const [inputValue, setInputValue] = useState(currentLocation);
-  const [debounceTimeout, setDebounceTimeout] = useState<ReturnType<
-    typeof setTimeout
-  > | null>(null);
+  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setInputValue(currentLocation);
@@ -30,11 +28,11 @@ const LocationFilter: React.FC = () => {
     const value = e.target.value;
     setInputValue(value);
 
-    if (debounceTimeout) {
-      clearTimeout(debounceTimeout);
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
     }
 
-    const timeout = setTimeout(() => {
+    debounceTimeout.current = setTimeout(() => {
       if (!value.trim()) {
         const updatedFilters = { ...filters };
         delete updatedFilters.location;
@@ -51,8 +49,6 @@ const LocationFilter: React.FC = () => {
       dispatch(setLocation(value));
       displayToast(value);
     }, 1000);
-
-    setDebounceTimeout(timeout);
   };
 
   const displayToast = (location: string) => {
@@ -61,15 +57,19 @@ const LocationFilter: React.FC = () => {
 
   return (
     <div className={styles.locationContainer}>
-      <label className={styles.labelLocation}>Location</label>
+      <label className={styles.labelLocation} htmlFor="locationInput">
+        Location
+      </label>
       <div className={styles.inputWrapper}>
         <Icon
           id="map"
           className={`${styles.icon} ${inputValue ? styles.iconActive : ""}`}
           width={20}
           height={20}
+          aria-hidden="true"
         />
         <input
+          id="locationInput"
           type="text"
           placeholder="City"
           className={`${styles.inputCity} ${
@@ -77,6 +77,7 @@ const LocationFilter: React.FC = () => {
           }`}
           value={inputValue}
           onChange={handleInputChange}
+          aria-label="Enter city name"
         />
       </div>
     </div>

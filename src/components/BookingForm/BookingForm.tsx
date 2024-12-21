@@ -58,6 +58,7 @@ const BookingForm: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              aria-label="Your full name"
             />
             <input
               className={styles.input}
@@ -66,6 +67,7 @@ const BookingForm: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              aria-label="Your email address"
             />
             <div className={styles.datePickerWrapper}>
               <DatePicker
@@ -76,6 +78,7 @@ const BookingForm: React.FC = () => {
                 dateFormat="dd.MM.yyyy"
                 locale="en-GB"
                 showPopperArrow={false}
+                aria-label="Select your booking date"
                 renderCustomHeader={({
                   monthDate,
                   decreaseMonth,
@@ -113,10 +116,16 @@ const BookingForm: React.FC = () => {
               placeholder="Comment"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              aria-label="Additional comments (optional)"
             ></textarea>
           </div>
           <div className={styles.buttonContainer}>
-            <Button text="Send now" type="submit" className={styles.button} />
+            <Button
+              text="Send now"
+              type="submit"
+              className={styles.button}
+              aria-label="Submit the booking form"
+            />
           </div>
         </form>
       )}

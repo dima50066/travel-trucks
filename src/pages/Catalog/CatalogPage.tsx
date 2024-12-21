@@ -38,19 +38,22 @@ const CatalogPage: React.FC = () => {
   const hasMoreItems = currentPage < totalPages;
 
   return (
-    <section className={styles.catalogContainer}>
-      <div className={styles.sidebar}>
+    <section className={styles.catalogContainer} aria-label="Camper catalog">
+      <div className={styles.sidebar} aria-label="Filters sidebar">
         <Filters />
       </div>
-      <div className={styles.mainContent}>
+      <div className={styles.mainContent} aria-label="Main content area">
         <CamperList campers={campers} />
         {loading && (
-          <div className={styles.loaderWrapper}>
+          <div className={styles.loaderWrapper} aria-live="polite">
             <Loader />
           </div>
         )}
         {hasMoreItems && !loading && (
-          <LoadMoreButton onLoadMore={handleLoadMore} />
+          <LoadMoreButton
+            onLoadMore={handleLoadMore}
+            aria-label="Load more campers"
+          />
         )}
       </div>
     </section>

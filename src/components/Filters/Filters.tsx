@@ -15,16 +15,12 @@ const Filters: React.FC = () => {
 
   const filters: FiltersType = useSelector(selectFilters);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     dispatch(setFilters(filters));
 
-    fetchFilteredData(filters);
-  };
-
-  const fetchFilteredData = async (appliedFilters: FiltersType) => {
     try {
       const response = await fetch(
-        `/api/data?${new URLSearchParams(appliedFilters).toString()}`
+        `/api/data?${new URLSearchParams(filters).toString()}`
       );
 
       if (!response.ok) {
@@ -48,6 +44,7 @@ const Filters: React.FC = () => {
           text="Search"
           onClick={handleButtonClick}
           className={styles.filterButton}
+          aria-label="Search with applied filters"
         />
       </div>
     </div>

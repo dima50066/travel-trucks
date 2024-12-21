@@ -274,4 +274,4 @@ https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers
 
 Author: Dumitru Cuznetov  
 Email: dima50066@gmail.com  
-GitHub: [Your GitHub](https://github.com/dima50066)
+GitHub: (https://github.com/dima50066)

@@ -7,6 +7,7 @@ import { AppDispatch } from "../../redux/store";
 import styles from "./CamperDetailsPage.module.css";
 import Icon from "../../shared/Icons/Icon";
 import CamperDetailsContent from "../../components/CamperDetailsContent/CamperDetailsContent";
+import Loader from "../../shared/Loader/Loader";
 
 const CamperDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +23,13 @@ const CamperDetailsPage: React.FC = () => {
     if (id) dispatch(fetchCamperDetails(id));
   }, [dispatch, id]);
 
-  if (loading) return <p className={styles.loader}>Loading...</p>;
+  if (loading)
+    return (
+      <div className={styles.loader}>
+        <Loader />
+      </div>
+    );
+
   if (!camper) return <p className={styles.error}>Camper not found</p>;
 
   return (

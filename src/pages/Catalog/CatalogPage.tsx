@@ -14,6 +14,7 @@ import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
 import { setPage } from "../../redux/filterSlice";
 import { AppDispatch } from "../../redux/store";
 import styles from "./CatalogPage.module.css";
+import Loader from "../../shared/Loader/Loader";
 
 const CatalogPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +44,11 @@ const CatalogPage: React.FC = () => {
       </div>
       <div className={styles.mainContent}>
         <CamperList campers={campers} />
-        {loading && <p className={styles.loading}>Loading...</p>}
+        {loading && (
+          <div className={styles.loaderWrapper}>
+            <Loader />
+          </div>
+        )}
         {hasMoreItems && !loading && (
           <LoadMoreButton onLoadMore={handleLoadMore} />
         )}

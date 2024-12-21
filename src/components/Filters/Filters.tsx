@@ -5,33 +5,28 @@ import VehicleEquipment from "../VehicleEquipment/VehicleEquipment";
 import VehicleType from "../VehicleType/VehicleType";
 import Button from "../../shared/Button/Button";
 import LocationFilter from "../LocationFilter/LocationFilter";
-import { setFilters } from "../../redux/filterSlice";
-import { selectFilters } from "../../redux/selectors";
-
-type FiltersType = Record<string, string>;
+import { setFilters, setPage } from "../../redux/filterSlice";
+import { fetchFilteredCampers } from "../../redux/operations";
+import { selectFilters, selectLimit } from "../../redux/selectors";
+import { AppDispatch } from "../../redux/store";
 
 const Filters: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const filters: FiltersType = useSelector(selectFilters);
+  const filters = useSelector(selectFilters);
+  const limit = useSelector(selectLimit);
 
-  const handleButtonClick = async () => {
+  const handleSearchClick = () => {
     dispatch(setFilters(filters));
+    dispatch(setPage(1));
 
-    try {
-      const response = await fetch(
-        `/api/data?${new URLSearchParams(filters).toString()}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch filtered data");
-      }
-
-      const data = await response.json();
-      console.log("Filtered data:", data);
-    } catch (error) {
-      console.error("Error fetching filtered data:", error);
-    }
+    dispatch(
+      fetchFilteredCampers({
+        filters,
+        page: 1,
+        limit,
+      })
+    );
   };
 
   return (
@@ -42,7 +37,7 @@ const Filters: React.FC = () => {
       <div className={styles.buttonsWrapper}>
         <Button
           text="Search"
-          onClick={handleButtonClick}
+          onClick={handleSearchClick}
           className={styles.filterButton}
           aria-label="Search with applied filters"
         />

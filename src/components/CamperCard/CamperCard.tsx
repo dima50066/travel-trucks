@@ -18,7 +18,6 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
   const dispatch = useDispatch();
 
   const favorites = useSelector(selectFavorites);
-
   const isFavorite = favorites.includes(camper.id);
 
   const iconId = useMemo(
@@ -34,6 +33,9 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
     dispatch(toggleFavorite(camper.id));
   };
 
+  const truncateText = (text: string, maxLength: number) =>
+    text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+
   return (
     <div className={styles.camperCard}>
       <div className={styles.camperImage}>
@@ -42,7 +44,7 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
       <div className={styles.camperDetails}>
         <div className={styles.camperHeader}>
           <div className={styles.headWrapper}>
-            <h3>{camper.name}</h3>
+            <h3 title={camper.name}>{truncateText(camper.name, 20)}</h3>
             <div className={styles.priceWrapper}>
               <span className={styles.price}>€{camper.price.toFixed(2)}</span>
               <Icon
@@ -80,7 +82,7 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
             ? `${camper.description.slice(0, 60)}...`
             : camper.description}
         </p>
-        <FeatureIconsList features={camper} limit={5} disableScroll />{" "}
+        <FeatureIconsList features={camper} limit={5} disableScroll />
         <Button
           text="Show more"
           className={styles.showMore}

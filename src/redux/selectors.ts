@@ -14,3 +14,4 @@ export const selectTotalPages = (state: RootState) => state.filters.totalPages;
 export const selectFilterLoading = (state: RootState) => state.filters.loading;
 export const selectLocation = (state: RootState) =>
   state.filters.filters.location || "";
+export const selectLimit = (state: RootState) => state.filters.limit;

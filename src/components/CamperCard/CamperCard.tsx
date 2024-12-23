@@ -41,8 +41,8 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
       <div className={styles.camperImage}>
         <img src={camper.gallery[0]?.thumb} alt={camper.name} />
       </div>
-      <div className={styles.camperDetails}>
-        <div className={styles.camperHeader}>
+      <section className={styles.camperDetails}>
+        <header className={styles.camperHeader}>
           <div className={styles.headWrapper}>
             <h3 title={camper.name}>{truncateText(camper.name, 20)}</h3>
             <div className={styles.priceWrapper}>
@@ -61,26 +61,24 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
               />
             </div>
           </div>
-          <div className={styles.ratingLocation}>
-            <span
-              className={`${styles.textStyle}`}
+          <ul className={styles.ratingLocation}>
+            <li
+              className={styles.textStyle}
               aria-label={`Rating: ${camper.rating} out of 5`}
             >
               <Icon id="star-filled" width={16} height={16} /> {camper.rating} (
               {camper.reviews.length} Reviews)
-            </span>
-            <span
-              className={`${styles.textStyle}`}
+            </li>
+            <li
+              className={styles.textStyle}
               aria-label={`Location: ${camper.location}`}
             >
               <Icon id="map" width={16} height={16} /> {camper.location}
-            </span>
-          </div>
-        </div>
+            </li>
+          </ul>
+        </header>
         <p className={styles.description}>
-          {camper.description?.length > 60
-            ? `${camper.description.slice(0, 60)}...`
-            : camper.description}
+          {truncateText(camper.description, 60)}
         </p>
         <FeatureIconsList features={camper} limit={5} disableScroll />
         <Button
@@ -89,7 +87,7 @@ const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
           onClick={handleShowMore}
           aria-label={`Show more details for ${camper.name}`}
         />
-      </div>
+      </section>
     </div>
   );
 };

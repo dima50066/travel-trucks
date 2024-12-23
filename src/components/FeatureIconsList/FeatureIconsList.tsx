@@ -47,43 +47,39 @@ const FeatureIconsList: React.FC<FeatureIconsListProps> = ({
     : null;
 
   return (
-    <div
+    <ul
       className={`${styles.features} ${
         disableScroll ? styles.disableScroll : ""
       }`}
       aria-labelledby="feature-icons-list"
     >
       {activeFeatures.map(([key, feature]) => (
-        <span
-          key={key}
-          className={styles.featureItem}
-          aria-label={feature.label}
-        >
+        <li key={key} className={styles.featureItem} aria-label={feature.label}>
           <Icon id={feature.id} width={20} height={20} />
           {feature.label}
-        </span>
+        </li>
       ))}
       {engineFeature && (
-        <span
+        <li
           key="engine"
           className={styles.featureItem}
           aria-label={engineFeature.label}
         >
           <Icon id={engineFeature.id} width={20} height={20} />
           {engineFeature.label}
-        </span>
+        </li>
       )}
       {transmissionFeature && (
-        <span
+        <li
           key="transmission"
           className={styles.featureItem}
           aria-label={transmissionFeature.label}
         >
           <Icon id={transmissionFeature.id} width={20} height={20} />
           {transmissionFeature.label}
-        </span>
+        </li>
       )}
-    </div>
+    </ul>
   );
 };
 

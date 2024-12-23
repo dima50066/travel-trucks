@@ -17,9 +17,9 @@ const CamperDetailsContent: React.FC<CamperDetailsContentProps> = ({
 }) => {
   return (
     <div className={styles.contentContainer}>
-      <div className={styles.leftSection}>
+      <section className={styles.leftSection} aria-labelledby="details-heading">
         {activeTab === "features" && (
-          <div className={styles.features}>
+          <article className={styles.features}>
             <FeatureIconsList features={camper} limit={10} />
             <VehicleDetails
               form={camper.form}
@@ -29,13 +29,17 @@ const CamperDetailsContent: React.FC<CamperDetailsContentProps> = ({
               tank={camper.tank}
               consumption={camper.consumption}
             />
-          </div>
+          </article>
         )}
-        {activeTab === "reviews" && <Reviews reviews={camper.reviews} />}
-      </div>
-      <div className={styles.rightSection}>
+        {activeTab === "reviews" && (
+          <section aria-labelledby="reviews-heading">
+            <Reviews reviews={camper.reviews} />
+          </section>
+        )}
+      </section>
+      <aside className={styles.rightSection} aria-labelledby="booking-form">
         <BookingForm />
-      </div>
+      </aside>
     </div>
   );
 };

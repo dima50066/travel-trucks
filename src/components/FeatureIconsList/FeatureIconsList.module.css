@@ -5,8 +5,11 @@
   max-height: 103px;
   overflow-y: auto;
   padding-right: 10px;
+  list-style: none; /* Забираємо стандартні маркери списку */
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-color, #ccc) transparent;
+  margin: 0; /* Забираємо стандартний відступ списків */
+  padding: 0; /* Забираємо стандартний внутрішній відступ */
 }
 
 .features.disableScroll {
@@ -14,7 +17,7 @@
   overflow-y: visible;
 }
 
-.features span {
+.featureItem {
   display: flex;
   align-items: center;
   gap: 8px;

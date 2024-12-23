@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
+    "@mui/material": "^6.2.1",
+    "@mui/x-date-pickers": "^7.23.3",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
-    "date-fns": "^4.1.0",
+    "date-fns": "^2.29.3",
     "lottie-react": "^2.4.0",
     "lottie-web": "^5.12.2",
     "modern-normalize": "^3.0.1",

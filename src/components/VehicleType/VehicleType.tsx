@@ -49,17 +49,26 @@ const VehicleType: React.FC = () => {
   };
 
   return (
-    <div className={styles.vehicleContainer}>
-      <h4 className={styles.title}>Vehicle type</h4>
+    <section
+      className={styles.vehicleContainer}
+      aria-labelledby="vehicle-title"
+    >
+      <h4 id="vehicle-title" className={styles.title}>
+        Vehicle type
+      </h4>
       <div className={styles.line}></div>
-      <div className={styles.typesGrid}>
+      <ul className={styles.typesGrid} role="list">
         {vehicleTypes.map((type) => (
-          <div
+          <li
             key={type.id}
             className={`${styles.typeBox} ${
               selectedForm === type.id ? styles.active : ""
             }`}
             onClick={() => handleSelection(type.id)}
+            role="button"
+            tabIndex={0}
+            aria-pressed={selectedForm === type.id}
+            aria-label={`Select ${type.label}`}
           >
             <Icon
               id={type.id}
@@ -68,12 +77,13 @@ const VehicleType: React.FC = () => {
               }`}
               width={24}
               height={24}
+              aria-hidden="true"
             />
             <span className={styles.label}>{type.label}</span>
-          </div>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };
 

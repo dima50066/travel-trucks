@@ -21,32 +21,34 @@ const VehicleDetails: React.FC<VehicleDetailsProps> = ({
   return (
     <div className={styles.vehicleDetails}>
       <h3>Vehicle details</h3>
-      <div className={styles.rowContainer}>
-        <div className={styles.detailsRow}>
-          <span>Form</span>
-          <span>{form || "N/A"}</span>
-        </div>
-        <div className={styles.detailsRow}>
-          <span>Length</span>
-          <span>{length !== undefined ? `${length}` : "N/A"}</span>
-        </div>
-        <div className={styles.detailsRow}>
-          <span>Width</span>
-          <span>{width !== undefined ? `${width}` : "N/A"}</span>
-        </div>
-        <div className={styles.detailsRow}>
-          <span>Height</span>
-          <span>{height !== undefined ? `${height}` : "N/A"}</span>
-        </div>
-        <div className={styles.detailsRow}>
-          <span>Tank</span>
-          <span>{tank !== undefined ? `${tank}` : "N/A"}</span>
-        </div>
-        <div className={styles.detailsRow}>
-          <span>Consumption</span>
-          <span>{consumption !== undefined ? `${consumption}` : "N/A"}</span>
-        </div>
-      </div>
+      <table className={styles.table}>
+        <tbody>
+          <tr>
+            <th>Form</th>
+            <td>{form || "N/A"}</td>
+          </tr>
+          <tr>
+            <th>Length</th>
+            <td>{length !== undefined ? `${length}` : "N/A"}</td>
+          </tr>
+          <tr>
+            <th>Width</th>
+            <td>{width !== undefined ? `${width}` : "N/A"}</td>
+          </tr>
+          <tr>
+            <th>Height</th>
+            <td>{height !== undefined ? `${height}` : "N/A"}</td>
+          </tr>
+          <tr>
+            <th>Tank</th>
+            <td>{tank !== undefined ? `${tank}` : "N/A"}</td>
+          </tr>
+          <tr>
+            <th>Consumption</th>
+            <td>{consumption !== undefined ? `${consumption}` : "N/A"}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

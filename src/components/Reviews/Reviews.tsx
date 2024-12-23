@@ -26,6 +26,7 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
           key={i}
           id={starType}
           className={styles.star}
+          aria-hidden="true"
         />
       );
     }
@@ -34,24 +35,27 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews }) => {
   };
 
   return (
-    <div className={styles.reviews}>
+    <section className={styles.reviews} aria-labelledby="reviews-heading">
       {reviews.map((review, index) => (
-        <div key={index} className={styles.review}>
-          <div className={styles.header}>
-            <div className={styles.avatar}>
+        <article key={index} className={styles.review}>
+          <header className={styles.header}>
+            <div className={styles.avatar} aria-hidden="true">
               {review.reviewer_name.charAt(0).toUpperCase()}
             </div>
             <div>
               <p className={styles.name}>{review.reviewer_name}</p>
-              <div className={styles.stars}>
+              <div
+                className={styles.stars}
+                aria-label={`Rating: ${review.reviewer_rating} out of 5`}
+              >
                 {renderStars(review.reviewer_rating)}
               </div>
             </div>
-          </div>
+          </header>
           <p className={styles.comment}>{review.comment}</p>
-        </div>
+        </article>
       ))}
-    </div>
+    </section>
   );
 };
 

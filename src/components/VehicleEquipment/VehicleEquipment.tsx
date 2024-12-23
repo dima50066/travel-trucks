@@ -90,16 +90,25 @@ const VehicleEquipment: React.FC = () => {
   };
 
   return (
-    <div className={styles.equipmentContainer}>
-      <h4 className={styles.title}>Vehicle equipment</h4>
-      <div className={styles.iconsGrid}>
+    <section
+      className={styles.equipmentContainer}
+      aria-labelledby="equipment-title"
+    >
+      <h4 id="equipment-title" className={styles.title}>
+        Vehicle equipment
+      </h4>
+      <ul className={styles.iconsGrid} role="list">
         {icons.map((icon) => (
-          <div
+          <li
             key={icon.id}
             className={`${styles.iconBox} ${
               selected[icon.id] ? styles.active : ""
             }`}
             onClick={() => toggleSelection(icon.id)}
+            role="button"
+            tabIndex={0}
+            aria-pressed={selected[icon.id]}
+            aria-label={`Toggle ${icon.label}`}
           >
             <Icon
               id={icon.id}
@@ -108,12 +117,13 @@ const VehicleEquipment: React.FC = () => {
               }`}
               width={24}
               height={24}
+              aria-hidden="true"
             />
             <span className={styles.label}>{icon.label}</span>
-          </div>
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </section>
   );
 };
 

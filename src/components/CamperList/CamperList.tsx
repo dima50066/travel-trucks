@@ -9,11 +9,13 @@ interface CamperListProps {
 
 const CamperList: React.FC<CamperListProps> = ({ campers }) => {
   return (
-    <div className={styles.camperList}>
+    <ul className={styles.camperList}>
       {campers.map((camper) => (
-        <CamperCard key={camper.id} camper={camper} />
+        <li key={camper.id} className={styles.camperListItem}>
+          <CamperCard camper={camper} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

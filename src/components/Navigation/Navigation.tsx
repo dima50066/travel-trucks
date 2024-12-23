@@ -5,10 +5,10 @@ import Icon from "../../shared/Icons/Icon";
 const Navigation: React.FC = () => {
   return (
     <header>
-      <section className={css.hero}>
-        <nav className={css.navigation} aria-label="Main Navigation">
-          <Icon className={css.logo} id="logo" width={136} height={15} />
-          <div className={css.navButtons}>
+      <nav className={css.navigation} aria-label="Main Navigation">
+        <Icon className={css.logo} id="logo" width={136} height={15} />
+        <ul className={css.navButtons}>
+          <li>
             <NavLink
               className={({ isActive }) =>
                 isActive ? `${css.navButton} ${css.active}` : css.navButton
@@ -17,6 +17,8 @@ const Navigation: React.FC = () => {
             >
               Home
             </NavLink>
+          </li>
+          <li>
             <NavLink
               className={({ isActive }) =>
                 isActive ? `${css.navButton} ${css.active}` : css.navButton
@@ -25,9 +27,9 @@ const Navigation: React.FC = () => {
             >
               Catalog
             </NavLink>
-          </div>
-        </nav>
-      </section>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };

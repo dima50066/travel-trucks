@@ -7,7 +7,7 @@ const initialState: CampersState = {
   loading: false,
   error: null,
   camperDetails: null,
-  favorites: JSON.parse(localStorage.getItem("favorites") || "[]"),
+  favorites: [], // Зберігається через persist
   currentPage: 1,
   totalPages: 1,
 };
@@ -24,7 +24,6 @@ const campersSlice = createSlice({
       } else {
         state.favorites.push(camperId);
       }
-      localStorage.setItem("favorites", JSON.stringify(state.favorites));
     },
   },
   extraReducers: (builder) => {
